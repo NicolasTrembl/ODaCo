@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once '../core/bootstrap.php';
 
 $mode = $_POST['mode'] ?? 'login';
@@ -20,11 +19,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $error = "Trop de tentatives. Réessaie dans 1 minute.";
   } elseif ($mode === 'register') {
     $result = register_user($_POST['username'], $_POST['email'], $_POST['password']);
+    if (!empty(($_POST['remember_me']))) {
+      $token = bin2hex(random_bytes(32));
+      setcookie('auth_token', $token, time() + (86400 * 30), '/', '', false, true);
+      $stmt = $pdo->prepare("UPDATE users SET remember_token = ? WHERE id = ?");
+      $stmt->execute([$token, $user['id']]);
+    }
     if ($result === true) header('Location: index.php');
     else $error = $result;
   } elseif ($mode === 'login') {
     $ok = login_user($_POST['username'], $_POST['password']);
     record_login_attempt($ip, $ok);
+    if (!empty(($_POST['remember_me']))) {
+      $token = bin2hex(random_bytes(32));
+      setcookie('auth_token', $token, time() + (86400 * 30), '/', '', false, true);
+      $stmt = $pdo->prepare("UPDATE users SET remember_token = ? WHERE id = ?");
+      $stmt->execute([$token, $user['id']]);
+    }
     if ($ok) header('Location: index.php');
     else $error = "Mauvais identifiants.";
   }
@@ -75,6 +86,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="password" name="password" placeholder="Mot de passe" required
                class="w-full px-3 py-2 border rounded">
       </div>
+      <label class="flex items-center space-x-2">
+        <input type="checkbox" name="remember_me" class="form-checkbox">
+        <span>Se souvenir de moi</span>
+      </label>
       <button type="submit"
               class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
         Valider

@@ -72,3 +72,18 @@ function record_login_attempt($ip, $success) {
         $_SESSION['login_attempts'][$ip] = $current;
     }
 }
+
+function is_logged_in(): bool {
+    return isset($_SESSION['user_id']);
+}
+
+function require_login(): void {
+    if (!is_logged_in()) {
+        header('Location: /login.php?redirect=' . urlencode($_SERVER['REQUEST_URI']));
+        exit;
+    }
+}
+
+function current_user_id(): ?int {
+    return $_SESSION['user_id'] ?? null;
+}

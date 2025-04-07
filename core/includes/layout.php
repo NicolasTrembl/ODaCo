@@ -19,6 +19,7 @@ function render_header($title = "ODaCo") {
         echo <<<HTML
                     <a href="search.php" class="text-gray-700 hover:underline">Recherche</a>
                     <a href="add.php" class="text-gray-700 hover:underline">Ajouter</a>
+                    <a href="todo.php" class="text-gray-700 hover:underline">Todo</a>
                     <a href="settings.php" class="text-gray-700 hover:underline">Paramètres</a>
                     <a href="logout.php" class="text-red-500 hover:underline">Déconnexion</a>
                 HTML;
