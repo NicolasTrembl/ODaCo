@@ -9,6 +9,7 @@ require_once BASE_PATH . '/core/includes/layout.php';
 
 session_start();
 
+require_once BASE_PATH . '/core/includes/lang.php';
 
 
 if (!isset($_SESSION['csrf_token'])) {

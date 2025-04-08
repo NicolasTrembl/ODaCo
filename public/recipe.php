@@ -3,7 +3,7 @@ require_once __DIR__ . '/../core/bootstrap.php';
 
 $id = $_GET['id'] ?? null;
 if (!$id) {
-    echo "<p>Recette non trouvée.</p>";
+    echo "<p>" .t("Recette_non_trouvée") . "</p>";
     exit;
 }
 
@@ -12,7 +12,7 @@ $stmt->execute([$id]);
 $recipe = $stmt->fetch();
 
 if (!$recipe) {
-    echo "<p>Recette introuvable.</p>";
+    echo "<p>" . t("Recette_manquante") . "</p>";
     exit;
 }
 
@@ -41,7 +41,7 @@ if (isset($_SESSION['user_id'])) {
 <form action="like.php" method="POST">
     <input type="hidden" name="recipe_id" value="<?= $id ?>">
     <button type="submit" name="like" class="px-4 py-2 bg-<?= $is_liked ? 'red' : 'blue' ?>-600 text-white rounded">
-        <?= $is_liked ? 'Dislike' : 'Like' ?>
+        <?= $is_liked ? t('Dislike') : t('Like') ?>
     </button>
 </form>
 
@@ -51,7 +51,7 @@ if (isset($_SESSION['user_id'])) {
     id="todo-toggle"
     class="bg-yellow-400 hover:bg-yellow-500 px-4 py-2 rounded text-white mt-4"
   >
-    Ajouter à ma liste à faire
+    <?= t("Ajout_todo") ?>
   </button>
 
   <script>
@@ -76,10 +76,10 @@ if (isset($_SESSION['user_id'])) {
 
       if (index > -1) {
         list.splice(index, 1);
-        document.getElementById('todo-toggle').innerText = "Ajouter à ma liste à faire";
+        document.getElementById('todo-toggle').innerText = "<?= t("Ajout_todo") ?>";
       } else {
         list.push(recipeId);
-        document.getElementById('todo-toggle').innerText = "Retirer de ma liste à faire";
+        document.getElementById('todo-toggle').innerText = "<?= t("Retirer_todo") ?>";
       }
 
       setTodoList(list);
@@ -88,7 +88,7 @@ if (isset($_SESSION['user_id'])) {
     document.addEventListener('DOMContentLoaded', () => {
       const btn = document.getElementById('todo-toggle');
       if (isInTodo(recipeId)) {
-        btn.innerText = "Retirer de ma liste à faire";
+        btn.innerText = "<?= t("Retirer_todo") ?>";
       }
 
       btn.addEventListener('click', toggleTodo);
@@ -97,7 +97,7 @@ if (isset($_SESSION['user_id'])) {
 <?php endif; ?>
 
 <h1 class="text-2xl font-semibold"><?= htmlspecialchars($recipe['title']) ?></h1>
-<a href="user.php?id=<?= $recipe['user_id'] ?>" class="text-blue-500">Voir le créateur</a>
+<a href="user.php?id=<?= $recipe['user_id'] ?>" class="text-blue-500"><?= t("Voir_Createur") ?></a>
 
 
 <?php if ($recipe['cover']): ?>
@@ -108,14 +108,14 @@ if (isset($_SESSION['user_id'])) {
   <p class="mb-4 text-gray-700"><?= nl2br(htmlspecialchars($recipe['description'])) ?></p>
 <?php endif; ?>
 
-<h3 class="text-xl font-semibold mt-6 mb-2">Ingrédients</h3>
+<h3 class="text-xl font-semibold mt-6 mb-2"><?= t("Ingrédients") ?></h3>
 <ul class="list-disc pl-6 mb-6">
   <?php foreach ($ingredients as $ing): ?>
-    <li><?= htmlspecialchars($ing['quantity']) . ' ' . htmlspecialchars($ing['unit']) . ' ' . htmlspecialchars($ing['name']) ?></li>
+    <li><?= htmlspecialchars($ing['quantity']) . ' / ' . htmlspecialchars($ing['unit']) . ' ' . htmlspecialchars($ing['name']) ?></li>
   <?php endforeach; ?>
 </ul>
 
-<h3 class="text-xl font-semibold mb-2">Préparation</h3>
+<h3 class="text-xl font-semibold mb-2"><?= t("Preparation") ?></h3>
 <ol class="space-y-4 list-decimal pl-6 mb-6">
   <?php foreach ($steps as $step): ?>
     <li>
@@ -129,7 +129,7 @@ if (isset($_SESSION['user_id'])) {
 
 <?php if ($recipe['extra_info']): ?>
   <div class="mt-6">
-    <h3 class="text-xl font-semibold mb-2">Variantes & Conseils</h3>
+    <h3 class="text-xl font-semibold mb-2"><?= t("Variantes_c") ?></h3>
     <p><?= nl2br(htmlspecialchars($recipe['extra_info'])) ?></p>
   </div>
 <?php endif; ?>

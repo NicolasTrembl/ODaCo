@@ -3,8 +3,11 @@ function render_header($title = "ODaCo") {
     $username = $_SESSION['username'] ?? null;
     echo <<<HTML
             <!DOCTYPE html>
-            <html lang="fr">
-            <head>
+            <html lang="
+            HTML
+            . htmlspecialchars($_SESSION['lang'] ?? 'fr') . 
+        <<<HTML
+            "><head>
             <meta charset="UTF-8">
             <title>$title</title>
             <script src="https://cdn.tailwindcss.com"></script>
@@ -17,11 +20,28 @@ function render_header($title = "ODaCo") {
 
     if ($username) {
         echo <<<HTML
-                    <a href="search.php" class="text-gray-700 hover:underline">Recherche</a>
-                    <a href="add.php" class="text-gray-700 hover:underline">Ajouter</a>
-                    <a href="todo.php" class="text-gray-700 hover:underline">Todo</a>
-                    <a href="settings.php" class="text-gray-700 hover:underline">Paramètres</a>
-                    <a href="logout.php" class="text-red-500 hover:underline">Déconnexion</a>
+                    <a href="search.php" class="text-gray-700 hover:underline"> 
+                HTML . 
+                htmlspecialchars(t("Rechercher")) . 
+            <<<HTML
+                </a><a href="add.php" class="text-gray-700 hover:underline"> 
+                HTML . 
+                htmlspecialchars(t("Ajout")) . 
+            <<<HTML
+                </a><a href="todo.php" class="text-gray-700 hover:underline"> 
+                HTML . 
+                htmlspecialchars(t("Todo")) . 
+            <<<HTML
+                </a><a href="settings.php" class="text-gray-700 hover:underline"> 
+                HTML . 
+                htmlspecialchars(t("Réglages")) . 
+            <<<HTML
+                </a><a href="logout.php" class="text-red-700 hover:underline"> 
+                HTML . 
+                htmlspecialchars(t("Deconnexion")) . 
+            <<<HTML
+                </a>
+                
                 HTML;
     } else {
         echo '<a href="login.php" class="text-blue-600 hover:underline">Connexion</a>';
@@ -35,10 +55,16 @@ function render_header($title = "ODaCo") {
 }
 
 function render_footer() {
+
+    $text = t("Texte_Footer");
+    $text = str_replace("{year}", date("Y"), $text);
+    
     echo <<<HTML
             </main>
             <footer class="text-center text-sm text-gray-500 py-4 mt-auto">
-                &copy; 2025 Open Database of Cocktails. Fait avec ❤️.
+            HTML
+            . htmlspecialchars($text) .
+        <<<HTML
             </footer>
             </body>
             </html>

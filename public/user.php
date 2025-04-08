@@ -3,7 +3,7 @@ require_once __DIR__ . '/../core/bootstrap.php';
 
 require_login();
 
-render_header('Profil utilisateur');
+render_header(t("Profil"));
 
 $user_id = $_GET['id'] ?? null;
 if (!$user_id) {
@@ -16,7 +16,7 @@ $stmt->execute([$user_id]);
 $user = $stmt->fetch();
 
 if (!$user) {
-    echo "<p>Utilisateur non trouvé.</p>";
+    echo "<p>" . t("No_User_Found") . "</p>";
     exit;
 }
 
@@ -27,7 +27,7 @@ $recipes = $stmt->fetchAll();
 
 <h1 class="text-2xl font-semibold"><?= htmlspecialchars($user['username']) ?></h1>
 
-<h2 class="text-xl">Recettes de cet utilisateur :</h2>
+<h2 class="text-xl"><?= t("User_Recette") ?></h2>
 <ul>
     <?php foreach ($recipes as $recipe): ?>
         <li><a href="recipe.php?id=<?= $recipe['id'] ?>"><?= htmlspecialchars($recipe['title']) ?></a></li>
@@ -43,7 +43,7 @@ $is_liked = $stmt->fetchColumn() > 0;
 <form action="like_user.php" method="POST">
     <input type="hidden" name="liked_user_id" value="<?= $user_id ?>">
     <button type="submit" class="px-4 py-2 bg-<?= $is_liked ? 'red' : 'blue' ?>-600 text-white rounded">
-        <?= $is_liked ? 'Dislike' : 'Like' ?>
+        <?= $is_liked ? t('Dislike') : t('Like') ?>
     </button>
 </form>
 

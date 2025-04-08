@@ -14,9 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   
   if (!csrf_check($_POST['csrf'] ?? '')) {
-    $error = "Token CSRF invalide.";
+    $error = t("Erreur_token_csrf");
   } elseif (is_login_blocked($ip)) {
-    $error = "Trop de tentatives. Réessaie dans 1 minute.";
+    $error = t("Erreur_trop_tentatives");
   } elseif ($mode === 'register') {
     $result = register_user($_POST['username'], $_POST['email'], $_POST['password']);
     if (!empty(($_POST['remember_me']))) {
@@ -37,34 +37,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $stmt->execute([$token, $user['id']]);
     }
     if ($ok) header('Location: index.php');
-    else $error = "Mauvais identifiants.";
+    else $error = t("Erreur_Identifiant");
   }
 } 
   
-
+render_header(t("Connexion"));
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>Connexion / Inscription</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    function toggleMode(mode) {
-      document.getElementById('mode').value = mode;
-      document.getElementById('form-title').textContent = mode === 'login' ? 'Connexion' : 'Créer un compte';
-      document.getElementById('email-field').style.display = mode === 'register' ? 'block' : 'none';
-    }
-  </script>
-</head>
-<body class="bg-gray-100 flex items-center justify-center h-screen">
-  <div class="bg-white p-6 rounded shadow-md w-full max-w-sm">
-    <h2 id="form-title" class="text-xl font-semibold mb-4">Connexion</h2>
+<main class="bg-gray-100 flex items-center justify-center h-screen">
+  
+    <div class="bg-white p-6 rounded shadow-md w-full max-w-sm">
+    <h2 id="form-title" class="text-xl font-semibold mb-4"><?php echo t("Connexion") ?></h2>
 
     <div class="flex justify-center mb-4">
-      <button onclick="toggleMode('login')" class="px-3 py-1 border rounded-l text-sm">Connexion</button>
-      <button onclick="toggleMode('register')" class="px-3 py-1 border rounded-r text-sm">Inscription</button>
+      <button onclick="toggleMode('login')" class="px-3 py-1 border rounded-l text-sm"><?php echo t("Connexion") ?></button>
+      <button onclick="toggleMode('register')" class="px-3 py-1 border rounded-r text-sm"><?php echo t("Inscription") ?></button>
     </div>
 
     <?php if ($error): ?>
@@ -75,26 +62,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <input type="hidden" name="mode" id="mode" value="<?= htmlspecialchars($mode) ?>">
       <input type="hidden" name="csrf" value="<?= csrf_token() ?>">
       <div>
-        <input type="text" name="username" placeholder="Nom d'utilisateur" required
-               class="w-full px-3 py-2 border rounded">
+        <input type="text" name="username" placeholder="<?php echo t("Nom_Utilisateur") ?>" required
+                class="w-full px-3 py-2 border rounded">
       </div>
       <div id="email-field" style="<?= $mode === 'register' ? '' : 'display:none;' ?>">
-        <input type="email" name="email" placeholder="Adresse email"
-               class="w-full px-3 py-2 border rounded">
+        <input type="email" name="email" placeholder="<?php echo t("Email") ?>"
+                class="w-full px-3 py-2 border rounded">
       </div>
       <div>
-        <input type="password" name="password" placeholder="Mot de passe" required
-               class="w-full px-3 py-2 border rounded">
+        <input type="password" name="password" placeholder="<?php echo t("MDP") ?>" required
+                class="w-full px-3 py-2 border rounded">
       </div>
       <label class="flex items-center space-x-2">
         <input type="checkbox" name="remember_me" class="form-checkbox">
-        <span>Se souvenir de moi</span>
+        <span><?php echo t("Souvenir_MDP") ?></span>
       </label>
       <button type="submit"
               class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-        Valider
+            <?php echo t("Valider") ?>
       </button>
     </form>
   </div>
-</body>
-</html>
+</main>
+
+<script>
+    function toggleMode(mode) {
+      document.getElementById('mode').value = mode;
+      document.getElementById('form-title').textContent = mode === 'login' ? '<?php echo t("Connexion") ?>' : '<?php echo t("Inscription") ?>';
+      document.getElementById('email-field').style.display = mode === 'register' ? 'block' : 'none';
+    }
+  </script>
+
+<?php render_footer(); ?>

@@ -1,12 +1,12 @@
 <?php
 require_once __DIR__ . '/../core/bootstrap.php';
-render_header("Ma liste à faire");
+render_header(title: t("Todo"));
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ids = $_POST['ids'] ?? [];
 
     if (!is_array($ids) || empty($ids)) {
-        echo "<p>Aucune recette dans votre liste.</p>";
+        echo "<p>" . t("Pas_Todo") . "</p>";
     } else {
         $placeholders = implode(',', array_fill(0, count($ids), '?'));
         $stmt = $pdo->prepare("SELECT * FROM recipes WHERE id IN ($placeholders)");
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $recipes = $stmt->fetchAll();
 
         if (!$recipes) {
-            echo "<p>Aucune recette trouvée.</p>";
+            echo "<p>" . t("Pas_Todo_Trouvé") . "</p>";
         } else {
             echo '<div class="grid grid-cols-1 md:grid-cols-2 gap-4">';
             foreach ($recipes as $recipe) {
@@ -32,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<h2 class="text-2xl font-bold mb-4">📋 Ma liste de recettes à faire</h2>
-<p>Chargement en cours...</p>
+<h2 class="text-2xl font-bold mb-4"><?= t("Ma_Todo") ?></h2>
+<p><?= t("Chargement") ?></p>
 
 <form id="todo-form" method="POST" style="display: none;">
   <input type="hidden" name="ids[]">
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <script>
   const todoIds = JSON.parse(localStorage.getItem('todo_recipes') || '[]');
   if (todoIds.length === 0) {
-    document.querySelector('p').innerText = 'Liste vide';
+    document.querySelector('p').innerText = '<?= t("Liste_Vide") ?>';
   } else {
     const form = document.getElementById('todo-form');
     todoIds.forEach(id => {

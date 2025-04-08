@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../core/bootstrap.php';
-render_header("Recherche de recettes");
+render_header( t("Rechercher") );
 
 $query = $_GET['q'] ?? '';
 $ingredient = $_GET['ingredient'] ?? '';
@@ -54,28 +54,29 @@ $stmt->execute($params);
 $recipes = $stmt->fetchAll();
 ?>
 
-<h2 class="text-2xl font-semibold mb-4">🔍 Rechercher un cocktail</h2>
+<h2 class="text-2xl font-semibold mb-4"><?= t("Chercher") ?></h2>
 
 <form method="GET" class="space-y-4 mb-8">
 
-  <input type="text" name="q" placeholder="Mot-clé (titre ou ingrédient)" value="<?= htmlspecialchars($query) ?>" class="w-full p-2 border rounded">
+  <input type="text" name="q" placeholder="<?= t("Mot_Cle") ?>" value="<?= htmlspecialchars($query) ?>" class="w-full p-2 border rounded">
 
   <div class="flex gap-4">
-    <input type="text" name="ingredient" placeholder="Filtrer par ingrédient" value="<?= htmlspecialchars($ingredient) ?>" class="flex-1 p-2 border rounded">
-    <input type="text" name="creator" placeholder="Filtrer par créateur" value="<?= htmlspecialchars($creator) ?>" class="flex-1 p-2 border rounded">
+    <input type="text" name="ingredient" placeholder="<?= t("Filtre_Ingrédients") ?>" value="<?= htmlspecialchars($ingredient) ?>" class="flex-1 p-2 border rounded">
+    <input type="text" name="creator" placeholder="<?= t("Filtre_User") ?>" value="<?= htmlspecialchars($creator) ?>" class="flex-1 p-2 border rounded">
   </div>
 
   <div class="flex gap-4">
     <select name="order" class="p-2 border rounded">
-      <option value="date_desc" <?= $order === 'date_desc' ? 'selected' : '' ?>>📅 Plus récents</option>
-      <option value="date_asc" <?= $order === 'date_asc' ? 'selected' : '' ?>>📅 Plus anciens</option>
-      <option value="alpha" <?= $order === 'alpha' ? 'selected' : '' ?>>🔤 A-Z</option>
-      <option value="relevance" <?= $order === 'relevance' ? 'selected' : '' ?>>⭐ Pertinence</option>
+      <option value="date_desc" <?= $order === 'date_desc' ? 'selected' : '' ?>>📅 <?= t("Plus_recent") ?></option>
+      <option value="date_asc" <?= $order === 'date_asc' ? 'selected' : '' ?>>📅 <?= t("Plus_ancien") ?></option>
+      <option value="alpha" <?= $order === 'alpha' ? 'selected' : '' ?>>🔤 <?= t("AZ") ?></option>
+      <option value="relevance" <?= $order === 'relevance' ? 'selected' : '' ?>>⭐ <?= t("Pertinance") ?></option>
+      <option value="like" <?= $order === 'like' ? 'selected' : '' ?>>⭐ <?= t("Plus_aimes") ?></option>
     </select>
 
-    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Rechercher</button>
+    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"><?= t(key: "Rechercher") ?></button>
 
-    <a href="search.php?random=1" class="px-4 py-2 bg-yellow-400 text-black rounded hover:bg-yellow-500 ml-auto">🍀 J'ai de la chance</a>
+    <a href="search.php?random=1" class="px-4 py-2 bg-yellow-400 text-black rounded hover:bg-yellow-500 ml-auto"><?= t("Random") ?></a>
   </div>
 </form>
 
@@ -86,14 +87,14 @@ if (isset($_GET['random'])) {
         header("Location: recipe.php?id=" . $rand);
         exit;
     } else {
-        echo "<p class='text-red-600'>Aucune recette disponible pour le moment.</p>";
+        echo "<p class='text-red-600'>" . t("Pas_Recette") . "</p>";
     }
 }
 ?>
 
 <ul class="space-y-3">
   <?php if (count($recipes) === 0): ?>
-    <li class="text-gray-500">Aucun résultat.</li>
+    <li class="text-gray-500"><?= t("Pas_Resultat") ?></li>
   <?php endif; ?>
   <?php foreach ($recipes as $r): ?>
     <li class="border p-3 rounded hover:bg-gray-100 transition">
@@ -102,7 +103,7 @@ if (isset($_GET['random'])) {
         <div>
           <p class="text-lg font-semibold"><?= htmlspecialchars($r['title']) ?></p>
           <p class="text-sm text-gray-500 flex flex-direction-row gap-2 items-center">
-            Par 
+            <?= t("Par") ?> 
             <a href="user.php?id=<?=$r['user_id']?>" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
               <?= htmlspecialchars($r['username']) ?>
             </a> 

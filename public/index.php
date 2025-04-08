@@ -1,16 +1,14 @@
 <?php
 require_once __DIR__ . '/../core/bootstrap.php';
-render_header("Accueil");
+render_header(t("Accueil"));
 
-// On suppose que l'utilisateur est connecté
 $user_id = $_SESSION['user_id'] ?? null;
 if (!$user_id) {
-    echo "<p>Veuillez vous connecter pour voir les recommandations.</p>";
+    echo "<p>" . t("Besoin_Co") . "</p>";
     render_footer();
     exit;
 }
 
-// 1. Recettes avec des ingrédients similaires à celles que l'utilisateur a likées
 $sql_ingredients = "
 SELECT DISTINCT r.id, r.title, r.icon, r.created_at
 FROM recipes r
@@ -32,7 +30,6 @@ $stmt = $pdo->prepare($sql_ingredients);
 $stmt->execute([':user_id' => $user_id]);
 $recipes_by_ingredients = $stmt->fetchAll();
 
-// 2. Recettes par des utilisateurs que l'utilisateur aime
 $sql_users = "
 SELECT DISTINCT r.id, r.title, r.icon, r.created_at
 FROM recipes r
@@ -43,7 +40,6 @@ $stmt = $pdo->prepare($sql_users);
 $stmt->execute([':user_id' => $user_id]);
 $recipes_by_users = $stmt->fetchAll();
 
-// 3. Recettes populaires (les plus likées)
 $sql_popular = "
 SELECT DISTINCT r.id, r.title, r.icon, r.created_at
 FROM recipes r
@@ -55,7 +51,6 @@ $stmt = $pdo->prepare($sql_popular);
 $stmt->execute();
 $popular_recipes = $stmt->fetchAll();
 
-// 4. Recettes que l'utilisateur a déjà likées
 $sql_liked_recipes = "
 SELECT DISTINCT r.id, r.title, r.icon, r.created_at
 FROM recipes r
@@ -68,11 +63,10 @@ $stmt->execute([':user_id' => $user_id]);
 $liked_recipes = $stmt->fetchAll();
 ?>
 
-<h2 class="text-2xl font-semibold mb-4">Recommandations pour vous</h2>
+<h2 class="text-2xl font-semibold mb-4"><? echo t("Reco")?></h2>
 
-<!-- Recommandations basées sur les ingrédients -->
 <div class="recommendation-category">
-  <h3>🍽️ Avec des ingrédients similaires à vos recettes likées</h3>
+  <h3><?php echo t("Reco_Ing") ?></h3>
   <ul>
     <?php if (count($recipes_by_ingredients) > 0): ?>
       <?php foreach ($recipes_by_ingredients as $r): ?>
@@ -84,14 +78,13 @@ $liked_recipes = $stmt->fetchAll();
         </li>
       <?php endforeach; ?>
     <?php else: ?>
-      <p>Aucune recette avec des ingrédients similaires à celles que vous avez likées.</p>
+      <p><?php echo t("No_Reco_Ing") ?></p>
     <?php endif; ?>
   </ul>
 </div>
 
-<!-- Recommandations basées sur les utilisateurs que vous aimez -->
 <div class="recommendation-category">
-  <h3>👩‍🍳 Par des utilisateurs que vous aimez</h3>
+  <h3><?php echo t("Reco_User"); ?></h3>
   <ul>
     <?php if (count($recipes_by_users) > 0): ?>
       <?php foreach ($recipes_by_users as $r): ?>
@@ -103,14 +96,14 @@ $liked_recipes = $stmt->fetchAll();
         </li>
       <?php endforeach; ?>
     <?php else: ?>
-      <p>Aucune recette par vos utilisateurs aimés.</p>
+      <p><?php echo t("No_Reco_User") ?></p>
     <?php endif; ?>
   </ul>
 </div>
 
 <!-- Recettes populaires -->
 <div class="recommendation-category">
-  <h3>🔥 Les plus populaires</h3>
+  <h3><?php echo t("Reco_Trending")?></h3>
   <ul>
     <?php if (count($popular_recipes) > 0): ?>
       <?php foreach ($popular_recipes as $r): ?>
@@ -122,14 +115,13 @@ $liked_recipes = $stmt->fetchAll();
         </li>
       <?php endforeach; ?>
     <?php else: ?>
-      <p>Aucune recette populaire pour le moment.</p>
+      <p> <?php echo t("No_Reco_Trending") ?> </p>
     <?php endif; ?>
   </ul>
 </div>
 
-<!-- Recettes que vous avez likées -->
 <div class="recommendation-category">
-  <h3>🔁 Redécouvrir vos recettes likées</h3>
+  <h3> <?php echo t("Like_Reco") ?> </h3>
   <ul>
     <?php if (count($liked_recipes) > 0): ?>
       <?php foreach ($liked_recipes as $r): ?>
@@ -141,7 +133,7 @@ $liked_recipes = $stmt->fetchAll();
         </li>
       <?php endforeach; ?>
     <?php else: ?>
-      <p>Aucune recette likée pour le moment.</p>
+      <p> <?php echo t("No_Like_Reco") ?> </p>
     <?php endif; ?>
   </ul>
 </div>

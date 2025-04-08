@@ -1,0 +1,88 @@
+key,fr,en
+LANGNAME,Français,English
+Accueil,Accueil,Home
+Besoin_Co,Veuillez vous connecter pour voir les recommandations.,Please log in to see recommendations.
+Reco,Recommandations pour vous,Recommendations for you
+Reco_Ing,🍽️ Avec des ingrédients similaires à vos recettes likées,🍽️ With ingredients similar to your liked recipes
+No_Reco_Ing,Aucune recette avec des ingrédients similaires à celles que vous avez likées.,No recipes with ingredients similar to the ones you liked.
+Reco_User,👩‍🍳 Par des utilisateurs que vous aimez,👩‍🍳 By user you liked
+No_Reco_User,Aucune recette par des utilisateurs que vous aimez.,No recipes by users you liked.
+Reco_Trending,🔥 Recettes tendance,🔥 Trending recipes
+No_Reco_Trending,Aucune recette tendance.,No trending recipes.
+Like_Reco,Recettes que vous avez likées,Recipes you liked
+No_Like_Reco,Aucune recette que vous avez likée.,No recipes you liked.
+Réglages,Réglages,Settings
+Ajouter_Recette,Ajouter une recette,Add a recipe
+Titre_manquant, Titre ou utilisateur manquant.,Missing title or user.
+Ajout_Succes,Recette ajoutée avec succès !,Recipe added successfully!
+Ajout,Ajouter une recette,Add a recipe
+Nom_Cocktail,Nom du cocktail,Name of the cocktail
+Icone_Cocktail,Icone du cocktail,Icon of the cocktail
+Photo_Principale,Photo principale,Main photo
+Description,Description / Histoire (optionnelle), Description / Story (optional)
+Ingrédients,Ingrédients,Ingredients
+Ajout_Ingrédients,Ajouter un ingrédient,Add an ingredient
+Nom,Nom,Name
+Quantité,Quantité,Quantity
+Unité,Unité,Unit
+Description,Description,Description
+Cover,Couverture,Cover
+Etapes,Étapes de préparation,Preparation steps
+Ajout_Etapes,Ajouter une étape,Add a step
+Variantes,Variantes / Conseils (optionnel),Variants / Tips (optional)
+Ajout_Recette,Ajouter la recette,Add the recipe
+Texte_Etape,Texte de l'étape,Step text
+Erreur_token_csrf,Token CSRF invalide.,Invalid CSRF token.
+Erreur_trop_tentatives,Trop de tentatives,Too many attempts
+Erreur_Identifiant,Identifiant ou mot de passe incorrect.,Incorrect identifier or password.
+Connexion,Connexion,Login
+Inscription,Inscription,Sign up
+Nom_Utilisateur,Nom d'utilisateur,Username
+Email, Addresse e-mail,Email address
+MDP, Mot de passe,Password
+Souvenir_MDP,Se souvenir de moi,Remember me
+Valider,Valider,Confirm
+Recette_manquante,Recette manquante.,Missing recipe.
+Recette_non_trouvée,Recette non trouvée.,Recipe not found.
+Like,J'aime,Like
+Dislike,Je n'aime plus,Dislike
+Ajout_todo,Ajouter à ma liste 'à faire',Add to my todo list
+Retirer_todo,Retirer de ma liste 'à faire',Remove from my todo list
+Todo,À faire,To do
+Voir_Createur,Voir le créateur,See creator
+Preparation,Préparation,Preparation
+Variantes_c,Variantes & conseils,Variants and tips
+Recherche,Chercher une recette,Search for a recipe
+Chercher,Rechercher un cocktail,Search for a cocktail
+Mot_Cle,Mot clé,Keyword
+Filtre_Ingrédients,Filtrer par ingrédient,Filter by ingredient
+Filtre_User,Filtrer par utilisateur,Filter by user
+Plus_recent,Plus récent,Most recent
+Plus_ancien,Plus ancien,Oldest
+AZ,A-Z,A-Z
+Pertinance,Pertinence,Relevance
+Plus_aimes,Plus aimés,Most liked
+Rechercher,Rechercher,Search
+Random,J'ai de la chance,I'm feeling lucky
+Pas_Recette,Pas de recette trouvée avec ces critères.,No recipe found with these criteria.
+Pas_Resultat,Pas de résultat trouvé.,No result found.
+Par,Par,By
+Tout_Réglages,Tout les réglages,All settings
+Langue,Langue,Language
+Theme,Thème,Theme
+Theme_Clair,Thème clair,Light theme
+Theme_Sombre,Thème sombre,Dark theme
+Deconnexion,Déconnexion,Logout
+Se_Deconnecter,Se déconnecter,Log out
+Suppr_Compte,Supprimer mon compte,Delete my account
+Confirmer_Suppr_Compte,Êtes-vous sûr de vouloir supprimer votre compte ?,Are you sure you want to delete your account?
+Confirmer_Suppr_Compte_2, Cette action est irréversible., This action is irreversible.
+Pas_Todo,Pas de recette à faire.,No recipe to do.
+Pas_Todo_Trouvé,Pas de recette trouvée.,No recipe found.
+Ma_Todo,Mes recettes à faire,My todo recipes
+Chargement,Chargement en cours...,Loading...
+Liste_Vide,Liste vide,Empty list
+Profil,Profil utilisateur,Profile
+No_User_Found,Aucun utilisateur trouvé.,No user found.
+User_Recette,Recettes de l'utilisateur,User recipes
+Texte_Footer,© {year} Open Database of Cocktails. Fait avec ❤️.,© {year} Open Database of Cocktails. Made with ❤️.
