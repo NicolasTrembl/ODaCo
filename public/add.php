@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = trim($_POST['title']);
     $icon = trim($_POST['icon']);
     $description = trim($_POST['description'] ?? '');
-    $extra = trim(string: $_POST['extra_info'] ?? '');
+    $extra = trim($_POST['extra_info'] ?? '');
     $user_id = $_SESSION['user_id'] ?? null;
 
     if (!$user_id || empty($title)) {
@@ -36,6 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    // Ensure uploads directories exist
+    $steps_upload_dir = __DIR__ . '/uploads/steps';
+    if (!is_dir($steps_upload_dir)) {
+        mkdir($steps_upload_dir, 0755, true);
+    }
+
     foreach ($_POST['step_content'] as $i => $content) {
         $content = trim($content);
         $image_path = null;
@@ -43,7 +49,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!empty($_FILES['step_image']['tmp_name'][$i])) {
             $ext = pathinfo($_FILES['step_image']['name'][$i], PATHINFO_EXTENSION);
             $image_path = 'uploads/steps/' . uniqid() . '.' . $ext;
-            move_uploaded_file($_FILES['step_image']['tmp_name'][$i], __DIR__ . '/' . $image_path);
+            $full_path = __DIR__ . '/' . $image_path;
+            
+            if (!move_uploaded_file($_FILES['step_image']['tmp_name'][$i], $full_path)) {
+                // If move fails, set image_path to null
+                error_log("Failed to move uploaded step image: " . $_FILES['step_image']['name'][$i]);
+                $image_path = null;
+            }
         }
 
         if ($content !== '' || $image_path) {
@@ -74,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <div>
     <label class="block mb-1 font-medium"><?php echo t("Photo_Principale") ?></label>
-    <input type="file" name="<?php echo t('Cover') ?>" accept="image/*" class="block">
+    <input type="file" name="cover" accept="image/*" class="block">
   </div>
 
   <div>
