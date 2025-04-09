@@ -102,10 +102,21 @@ render_header(t("Réglages"));
 
     if (theme === "custom") {
       const custom = JSON.parse(localStorage.getItem("custom_theme") || "{}");
-      if (custom.text)     document.documentElement.style.setProperty('--text-color', custom.text);
-      if (custom.bg)       document.documentElement.style.setProperty('--background-color', custom.bg);
-      if (custom.primary)  document.documentElement.style.setProperty('--primary-color', custom.primary);
-      if (custom.secondary)document.documentElement.style.setProperty('--secondary-color', custom.secondary);
+      const style = document.createElement("style");
+      style.id = "custom-theme-style";
+      style.innerHTML = `
+        /* CUSTOM */
+        [data-theme="custom"] {
+          ${custom.text ? `--text-color: ${custom.text};` : ""}
+          ${custom.bg ? `--background-color: ${custom.bg};` : ""}
+          ${custom.primary ? `--primary-color: ${custom.primary};` : ""}
+          ${custom.secondary ? `--secondary-color: ${custom.secondary};` : ""}
+        }
+      `;
+      document.head.querySelector("#custom-theme-style")?.remove();
+      document.head.appendChild(style);
+    } else {
+      document.head.querySelector("#custom-theme-style")?.remove();
     }
   }
 
@@ -128,7 +139,12 @@ render_header(t("Réglages"));
     });
 
     $("#theme-custom").click(() => {
-      $("#custom-theme-form").removeClass("hidden");
+      if (current === "custom") {
+        applyTheme("light");
+        $("#custom-theme-form").addClass("hidden");
+      } else {
+        $("#custom-theme-form").removeClass("hidden");
+      }
     });
 
     $("#apply-custom-theme").click(() => {
