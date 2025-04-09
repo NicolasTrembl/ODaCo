@@ -90,3 +90,9 @@ Supprimer,Supprimer,Delete
 Confirmer_suppression,Êtes-vous sûr de vouloir supprimer ?,Are you sure you want to delete?
 Voir_Recette,Voir la recette,See the recipe
 Cherche_User,Rechercher un utilisateur,Search for a user
+Theme_Personnalisé,Thème personnalisé,Custom theme
+Texte_C,Couleur du texte,Text color
+Fond,Couleur de fond,Background color
+Primaire,Couleur primaire,Primary color
+Secondaire,Couleur secondaire,Secondary color
+Appliquer,Appliquer,Apply

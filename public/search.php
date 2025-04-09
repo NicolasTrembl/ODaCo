@@ -97,7 +97,7 @@ $recipes = $stmt->fetchAll();
   <?php else: ?>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       <?php foreach ($recipes as $r): ?>
-        <div class="min-w-[80%] sm:min-w-[300px] snap-center flex-shrink-0 bg rounded-2xl shadow-md overflow-hidden">
+        <div class="min-w-[80%] sm:min-w-[200px] snap-center flex-shrink-0 bg rounded-2xl shadow-md overflow-hidden">
           <div class="block relative overflow-hidden rounded-lg shadow-md">
             <a href="recipe.php?id=<?= $r['id'] ?>"><img src="<?= $r['cover'] ?>" alt="<?= htmlspecialchars($r['title']) ?>" class="w-full h-48 object-cover"></a>
             <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[var(--primary-color)] to-transparent tcolor p-4 flex justify-between items-end h-2/3 pointer-events-none">

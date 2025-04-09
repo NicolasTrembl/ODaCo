@@ -1,17 +1,25 @@
+
+/* LIGHT */
 :root {
-    --background-color: #E9C46A;
-    --text-color: #264653;
-    --primary-color: #E76F51;
-    --secondary-color: #F4A261;
+    --background-color: #ffffff;
+    --text-color: #1f2937;
+    --primary-color: #2563eb;
+    --secondary-color: #10b981;
     --shadow: rgba(0, 0, 0, 0.1);
 }
 
+/* DARK */
 [data-theme="dark"] {
-    --background-color: #264653;
-    --text-color: #E9C46A;
-    --primary-color: #E76F51;
-    --secondary-color: #F4A261;
-    --shadow: rgba(0, 0, 0, 0.5);
+    --background-color: #1f2937;
+    --text-color: #f3f4f6;
+    --primary-color: #3b82f6;
+    --secondary-color: #14b8a6;
+    --shadow: rgba(255, 255, 255, 0.1);
+}
+
+/* CUSTOM */
+[data-theme="custom"] {
+    /* LEAVE EMPTY */
 }
 
 

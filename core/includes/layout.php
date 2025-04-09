@@ -15,6 +15,26 @@ function render_header($title = "ODaCo") {
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
             <link rel="stylesheet" href="../assets/css/theme.css"></link>
+            <!-- AVOID THEME FLASHING -->
+            <script>
+              (function() {
+                const theme = localStorage.getItem('theme') || 'light';
+                document.documentElement.setAttribute('data-theme', theme);
+
+                if (theme === 'custom') {
+                  try {
+                    const custom = JSON.parse(localStorage.getItem('custom_theme') || '{}');
+                    if (custom.text)     document.documentElement.style.setProperty('--text-color', custom.text);
+                    if (custom.bg)       document.documentElement.style.setProperty('--background-color', custom.bg);
+                    if (custom.primary)  document.documentElement.style.setProperty('--primary-color', custom.primary);
+                    if (custom.secondary)document.documentElement.style.setProperty('--secondary-color', custom.secondary);
+                  } catch (e) {
+                    console.error("Thème personnalisé invalide", e);
+                  }
+                }
+              })();
+            </script>
+
         </head>
         <body class="bg tcolor">
             <header class="pcolor shadow p-4 flex justify-between items-center relative sticky top-0 z-30">
