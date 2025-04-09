@@ -19,11 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $error = t("Erreur_trop_tentatives");
   } elseif ($mode === 'register') {
     $result = register_user($_POST['username'], $_POST['email'], $_POST['password']);
-    if (!empty(($_POST['remember_me']))) {
+    if (!empty($_POST['remember_me'])) {
       $token = bin2hex(random_bytes(32));
-      setcookie('auth_token', $token, time() + (86400 * 30), '/', '', false, true);
+      setcookie('auth_token', $token, time() + 86400 * 30, '/', '', false, true);
+      $user_id = current_user_id();
       $stmt = $pdo->prepare("UPDATE users SET remember_token = ? WHERE id = ?");
-      $stmt->execute([$token, $user['id']]);
+      $stmt->execute([$token, $user_id]);
     }
     if ($result === true) header('Location: index.php');
     else $error = $result;
@@ -33,8 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty(($_POST['remember_me']))) {
       $token = bin2hex(random_bytes(32));
       setcookie('auth_token', $token, time() + (86400 * 30), '/', '', false, true);
+      $user_id = current_user_id();
       $stmt = $pdo->prepare("UPDATE users SET remember_token = ? WHERE id = ?");
-      $stmt->execute([$token, $user['id']]);
+      $stmt->execute([$token, $user_id]);
     }
     if ($ok) header('Location: index.php');
     else $error = t("Erreur_Identifiant");
