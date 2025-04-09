@@ -135,6 +135,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <script>
+
+  const MAX_FILE_SIZE = 2 * 1024 * 1024;
+  
+  function validateFileSize(fileInput) {
+    if (fileInput.files.length > 0) {
+      const fileSize = fileInput.files[0].size;
+      if (fileSize > MAX_FILE_SIZE) {
+        alert('File size exceeds 2MB limit. Please choose a smaller image.');
+        fileInput.value = '';
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  $('input[name="cover"]').change(function() {
+    validateFileSize(this);
+  });
+  
+  $(document).on('change', 'input[name="step_image[]"]', function() {
+    validateFileSize(this);
+  });
+  
+  $('form').submit(function(e) {
+    let isValid = true;
+    
+    if ($('input[name="cover"]')[0].files.length > 0) {
+      isValid = validateFileSize($('input[name="cover"]')[0]);
+    }
+    
+    $('input[name="step_image[]"]').each(function() {
+      if (this.files.length > 0) {
+        if (!validateFileSize(this)) {
+          isValid = false;
+        }
+      }
+    });
+    
+    if (!isValid) {
+      e.preventDefault();
+    }
+  });
+  
+
   $(function () {
     $('#add-ingredient').click(function () {
       const newInput = `

@@ -4,7 +4,7 @@ require_login();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    echo json_encode(['error' => 'Method not allowed']);
+    echo "Method Not Allowed";
     exit;
 }
 
@@ -12,7 +12,7 @@ $recipe_id = isset($_POST['recipe_id']) ? (int)$_POST['recipe_id'] : 0;
 
 if ($recipe_id <= 0) {
     http_response_code(400);
-    echo json_encode(['error' => 'Invalid recipe ID']);
+    echo "Invalid recipe ID";
     exit;
 }
 
@@ -22,13 +22,13 @@ $recipe = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$recipe) {
     http_response_code(404);
-    echo json_encode(['error' => 'Recipe not found']);
+    echo "Recipe not found";
     exit;
 }
 
 if ($recipe['user_id'] != $_SESSION['user_id']) {
     http_response_code(403);
-    echo json_encode(['error' => 'You do not have permission to delete this recipe']);
+    echo "You do not have permission to delete this recipe";
     exit;
 }
 
@@ -48,7 +48,8 @@ try {
     $step_images = $stmt->fetchAll(PDO::FETCH_COLUMN);
     
     foreach ($step_images as $image) {
-        $image_path = '../uploads/steps/' . $image;
+        $image_path = __DIR__ . "/" . $image;
+        // echo $image_path;
         if (file_exists($image_path)) {
             unlink($image_path);
         }
@@ -63,7 +64,8 @@ try {
     $pdo->commit();
     
     if (!empty($image_filename)) {
-        $image_path = '../uploads/cover/' . $image_filename;
+        $image_path = __DIR__ . "/" . $image_filename;
+        // echo $image_path;
         if (file_exists($image_path)) {
             unlink($image_path);
         }
@@ -74,5 +76,5 @@ try {
 } catch (Exception $e) {
     $pdo->rollBack();
     http_response_code(500);
-    echo json_encode(['error' => 'Failed to delete recipe', 'message' => $e->getMessage()]);
+    echo 'Failed to delete recipe' .  $e->getMessage();
 }
