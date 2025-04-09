@@ -53,7 +53,7 @@ function render_header($title = "ODaCo") {
         echo '<a href="settings.php" class="hover:underline">' . htmlspecialchars(t("Réglages")) . '</a>';
         echo '<a href="logout.php" class="text-red-700 hover:underline">' . htmlspecialchars(t("Deconnexion")) . '</a>';
     } else {
-        echo '<a href="login.php" class="text-blue-600 hover:underline">Connexion</a>';
+        echo '<a href="login.php" class="hover:underline">Connexion</a>';
     }
 
     echo <<<HTML
@@ -79,7 +79,7 @@ function render_header($title = "ODaCo") {
         echo '<a href="settings.php" class="block hover:underline">' . htmlspecialchars(t("Réglages")) . '</a>';
         echo '<a href="logout.php" class="block text-red-700 hover:underline">' . htmlspecialchars(t("Deconnexion")) . '</a>';
     } else {
-        echo '<a href="login.php" class="block text-blue-600 hover:underline">Connexion</a>';
+        echo '<a href="login.php" class="block hover:underline">Connexion</a>';
     }
 
     echo <<<HTML
