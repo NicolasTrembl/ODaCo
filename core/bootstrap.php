@@ -3,7 +3,6 @@
 
 require_once __DIR__ . '/../config.php';
 require_once BASE_PATH . '/core/includes/db.php';
-require_once BASE_PATH . '/core/includes/functions.php';
 require_once BASE_PATH . '/core/includes/auth.php';
 require_once BASE_PATH . '/core/includes/layout.php';
 
