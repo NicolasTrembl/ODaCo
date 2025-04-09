@@ -86,3 +86,7 @@ Profil,Profil utilisateur,Profile
 No_User_Found,Aucun utilisateur trouvé.,No user found.
 User_Recette,Recettes de l'utilisateur,User recipes
 Texte_Footer,© {year} Open Database of Cocktails.,© {year} Open Database of Cocktails.
+Supprimer,Supprimer,Delete
+Confirmer_suppression,Êtes-vous sûr de vouloir supprimer ?,Are you sure you want to delete?
+Voir_Recette,Voir la recette,See the recipe
+Cherche_User,Rechercher un utilisateur,Search for a user

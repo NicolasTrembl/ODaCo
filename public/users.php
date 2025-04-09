@@ -14,7 +14,7 @@ $stmt->execute([$user_id]);
 $users = $stmt->fetchAll();
 ?>
 
-<h2 class="text-2xl font-semibold mb-4">🔍 Utilisateurs</h2>
+<h2 class="text-2xl font-semibold mb-4"><?= t("Cherche_User")?></h2>
 
 <ul class="space-y-3">
   <?php foreach ($users as $user): ?>
@@ -31,7 +31,7 @@ $users = $stmt->fetchAll();
         <form action="like_user.php" method="POST">
           <input type="hidden" name="liked_user_id" value="<?= $user['id'] ?>">
           <button type="submit" name="like_user" class="px-4 py-2 bg-<?= $is_liked ? 'red' : 'blue' ?>-600 text-white rounded">
-            <?= $is_liked ? 'Dislike' : 'Like' ?>
+            <?= $is_liked ? t('Dislike') : t('Like') ?>
           </button>
         </form>
       </div>

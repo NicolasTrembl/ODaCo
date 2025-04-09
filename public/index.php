@@ -73,21 +73,18 @@ function renderRecommendationSection($title, $recipes, $emptyText) {
   if (count($recipes) > 0): ?>
     <div class="flex space-x-4 overflow-x-auto snap-x pb-2">
       <?php foreach ($recipes as $r): ?>
-        <div class="min-w-[80%] sm:min-w-[300px] snap-center flex-shrink-0 bg-white rounded-2xl shadow-md overflow-hidden">
-        <a href="recipe.php?id=<?= $r['id'] ?>" class="block relative overflow-hidden rounded-lg shadow-md">
-          <img src="<?= $r['cover'] ?>" alt="<?= htmlspecialchars($r['title']) ?>" class="w-full h-48 object-cover">
-
-          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[var(--primary-color)] to-transparent tcolor p-4 flex justify-between items-end h-2/3">
-
-            <div class="text-3xl"><?= htmlspecialchars($r['icon']) ?></div>
-
-            <div class="text-right">
-              <h4 class="text-lg font-bold"><?= htmlspecialchars($r['title']) ?></h4>
-              <p class="text-sm"><?php echo t("By") . " " . htmlspecialchars("User" . $r['user_id']); ?></p>
+        <div class="min-w-[80%] sm:min-w-[300px] snap-center flex-shrink-0 bg rounded-2xl shadow-md overflow-hidden">
+          <div class="block relative overflow-hidden rounded-lg shadow-md">
+            <a href="recipe.php?id=<?= $r['id'] ?>"><img src="<?= $r['cover'] ?>" alt="<?= htmlspecialchars($r['title']) ?>" class="w-full h-48 object-cover"></a>
+            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[var(--primary-color)] to-transparent tcolor p-4 flex justify-between items-end h-2/3 pointer-events-none">
+              <div class="text-3xl"><?= htmlspecialchars($r['icon']) ?></div>
+              <div class="text-right">
+                <a href="recipe.php?id=<?= $r['id'] ?>">
+                  <h4 class="text-lg font-bold"><?= htmlspecialchars($r['title']) ?></h4>
+                </a>
+              </div>
             </div>
           </div>
-        </a>
-
         </div>
       <?php endforeach; ?>
     </div>

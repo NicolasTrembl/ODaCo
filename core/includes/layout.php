@@ -6,7 +6,10 @@ function render_header($title = "ODaCo") {
         <!DOCTYPE html>
         <html lang="$lang">
         <head>
+
             <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+
             <title>$title</title>
             <script src="https://cdn.tailwindcss.com"></script>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -24,6 +27,7 @@ function render_header($title = "ODaCo") {
 
     if ($username) {
         echo '<a href="search.php" class="hover:underline">' . htmlspecialchars(t("Rechercher")) . '</a>';
+        echo '<a href="users.php" class="hover:underline">' . htmlspecialchars(t("Cherche_User")) . '</a>';
         echo '<a href="add.php" class="hover:underline">' . htmlspecialchars(t("Ajout")) . '</a>';
         echo '<a href="todo.php" class="hover:underline">' . htmlspecialchars(t("Todo")) . '</a>';
         echo '<a href="settings.php" class="hover:underline">' . htmlspecialchars(t("Réglages")) . '</a>';
@@ -49,6 +53,7 @@ function render_header($title = "ODaCo") {
 
     if ($username) {
         echo '<a href="search.php" class="block hover:underline">' . htmlspecialchars(t("Rechercher")) . '</a>';
+        echo '<a href="users.php" class="block hover:underline">' . htmlspecialchars(t("Cherche_User")) . '</a>';
         echo '<a href="add.php" class="block hover:underline">' . htmlspecialchars(t("Ajout")) . '</a>';
         echo '<a href="todo.php" class="block hover:underline">' . htmlspecialchars(t("Todo")) . '</a>';
         echo '<a href="settings.php" class="block hover:underline">' . htmlspecialchars(t("Réglages")) . '</a>';
