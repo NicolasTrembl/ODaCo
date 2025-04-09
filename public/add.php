@@ -14,7 +14,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<p class='text-red-500'>" . t("Titre_manquant") . "</p>";
         return;
     }
-
+    $upload_dirs = [
+      __DIR__ . '/uploads',
+      __DIR__ . '/uploads/cover',
+      __DIR__ . '/uploads/steps'
+    ];
+    
+    foreach ($upload_dirs as $dir) {
+      if (!file_exists($dir)) {
+        if (!mkdir($dir, 0755, true)) {
+          echo "<p class='text-red-500'>" . t("Erreur_Creation_Dossier") . ": $dir</p>";
+          error_log("Failed to create directory: $dir");
+          return;
+        }
+      } else if (!is_writable($dir)) {
+        echo "<p class='text-red-500'>" . t("Dossier_Non_Accessible") . ": $dir</p>";
+        error_log("Directory not writable: $dir");
+        return;
+      }
+    }
+    
+    $max_size = 2 * 1024 * 1024;
+    if (!empty($_FILES['cover']['tmp_name']) && $_FILES['cover']['size'] > $max_size) {
+      echo "<p class='text-red-500'>" . t("Image_Trop_Grande") . "</p>";
+      return;
+    }
     $cover_path = null;
     if (!empty($_FILES['cover']['tmp_name'])) {
         $ext = pathinfo($_FILES['cover']['name'], PATHINFO_EXTENSION);
