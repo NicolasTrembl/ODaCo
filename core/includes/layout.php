@@ -15,6 +15,9 @@ function render_header($title = "ODaCo") {
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
             <link rel="stylesheet" href="../assets/css/theme.css"></link>
+            <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+            <link rel="shortcut icon" href="../assets/favicon.ico" type="image/x-icon">
+
             <!-- AVOID THEME FLASHING -->
             <script>
               (function() {
